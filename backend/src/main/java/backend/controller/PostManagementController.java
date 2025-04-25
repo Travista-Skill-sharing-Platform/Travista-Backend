@@ -134,6 +134,40 @@ public class PostManagementController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @PostMapping("/{postId}/comment")
+    public ResponseEntity<PostManagementModel> addComment(@PathVariable String postId, @RequestBody Map<String, String> request) {
+        String userID = request.get("userID");
+        String content = request.get("content");
+
+        return postRepository.findById(postId)
+                .map(post -> {
+                    Comment comment = new Comment();
+                    comment.setId(UUID.randomUUID().toString());
+                    comment.setUserID(userID);
+                    comment.setContent(content);
+
+                    // Fetch user's full name
+                    String userFullName = userRepository.findById(userID)
+                            .map(user -> user.getFullname())
+                            .orElse("Anonymous");
+                    comment.setUserFullName(userFullName);
+
+                    post.getComments().add(comment);
+                    postRepository.save(post);
+
+                    // Create a notification for the post owner
+                    if (!userID.equals(post.getUserID())) {
+                        String message = String.format("%s commented on your post: %s", userFullName, post.getTitle());
+                        String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                        NotificationModel notification = new NotificationModel(post.getUserID(), message, false, currentDateTime);
+                        notificationRepository.save(notification);
+                    }
+
+                    return ResponseEntity.ok(post);
+                })
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<?> handleMaxSizeException(MaxUploadSizeExceededException exc) {
         return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body("File size exceeds the maximum limit!");
