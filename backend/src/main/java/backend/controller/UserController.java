@@ -35,105 +35,104 @@ public class UserController {
         UserModel savedUser = userRepository.save(newUserModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
-}
 
-//User Login
-@PostMapping("/login")
-public ResponseEntity<Map<String, Object>> login(@RequestBody UserModel loginDetails) {
-    System.out.println("Login attempt for email: " + loginDetails.getEmail()); // Log email for debugging
+    //User Login
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, Object>> login(@RequestBody UserModel loginDetails) {
+        System.out.println("Login attempt for email: " + loginDetails.getEmail()); // Log email for debugging
 
-    UserModel user = userRepository.findByEmail(loginDetails.getEmail())
-            .orElseThrow(() -> new UserNotFoundException("Email not found: " + loginDetails.getEmail()));
+        UserModel user = userRepository.findByEmail(loginDetails.getEmail())
+                .orElseThrow(() -> new UserNotFoundException("Email not found: " + loginDetails.getEmail()));
 
-    if (user.getPassword().equals(loginDetails.getPassword())) {
-        System.out.println("Login successful for email: " + loginDetails.getEmail()); // Log success
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Login Successful");
-        response.put("id", user.getId());
-        response.put("fullName", user.getFullname());
-        return ResponseEntity.ok(response);
-    } else {
-        System.out.println("Invalid password for email: " + loginDetails.getEmail()); // Log invalid password
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid credentials!"));
+        if (user.getPassword().equals(loginDetails.getPassword())) {
+            System.out.println("Login successful for email: " + loginDetails.getEmail()); // Log success
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Login Successful");
+            response.put("id", user.getId());
+            response.put("fullName", user.getFullname());
+            return ResponseEntity.ok(response);
+        } else {
+            System.out.println("Invalid password for email: " + loginDetails.getEmail()); // Log invalid password
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid credentials!"));
+        }
     }
-}
 
-//Display
-@GetMapping("/user")
-List<UserModel> getAllUsers() {
-    return userRepository.findAll();
-}
-
-@GetMapping("/user/{id}")
-UserModel getUserId(@PathVariable String id) {
-    return userRepository.findById(id)
-            .orElseThrow(() -> new UserNotFoundException(id));
-}
-
-//update
-@PutMapping("/user/{id}")
-UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable String id) {
-    return userRepository.findById(id)
-            .map(userModel -> {
-                userModel.setFullname(newUserModel.getFullname());
-                userModel.setEmail(newUserModel.getEmail());
-                userModel.setPassword(newUserModel.getPassword());
-                userModel.setPhone(newUserModel.getPhone());
-                userModel.setBio(newUserModel.getBio()); // Update bio
-                return userRepository.save(userModel);
-            }).orElseThrow(() -> new UserNotFoundException(id));
-}
-
-//delete
-@DeleteMapping("/user/{id}")
-String deleteProfile(@PathVariable String id) {
-    if (!userRepository.existsById(id)) {
-        throw new UserNotFoundException(id);
+    //Display
+    @GetMapping("/user")
+    List<UserModel> getAllUsers() {
+        return userRepository.findAll();
     }
-    userRepository.deleteById(id);
-    return "user account " + id + " deleted";
-}
 
-// check email
-@GetMapping("/checkEmail")
-public boolean checkEmailExists(@RequestParam String email) {
-    return userRepository.existsByEmail(email);
-}
+    @GetMapping("/user/{id}")
+    UserModel getUserId(@PathVariable String id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
 
-@PutMapping("/user/{userID}/follow")
-public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
-    String followUserID = request.get("followUserID");
-    return userRepository.findById(userID).map(user -> {
-        user.getFollowedUsers().add(followUserID);
-        userRepository.save(user);
+    //update
+    @PutMapping("/user/{id}")
+    UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable String id) {
+        return userRepository.findById(id)
+                .map(userModel -> {
+                    userModel.setFullname(newUserModel.getFullname());
+                    userModel.setEmail(newUserModel.getEmail());
+                    userModel.setPassword(newUserModel.getPassword());
+                    userModel.setPhone(newUserModel.getPhone());
+                    userModel.setBio(newUserModel.getBio()); // Update bio
+                    return userRepository.save(userModel);
+                }).orElseThrow(() -> new UserNotFoundException(id));
+    }
 
-        // Create a notification for the followed user
-        String followerFullName = userRepository.findById(userID)
-                .map(follower -> follower.getFullname())
-                .orElse("Someone");
-        String message = String.format("%s started following you.", followerFullName);
-        String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        NotificationModel notification = new NotificationModel(followUserID, message, false, currentDateTime);
-        notificationRepository.save(notification);
+    //delete
+    @DeleteMapping("/user/{id}")
+    String deleteProfile(@PathVariable String id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
+        userRepository.deleteById(id);
+        return "user account " + id + " deleted";
+    }
 
-        return ResponseEntity.ok(Map.of("message", "User followed successfully"));
-    }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
-}
+    // check email
+    @GetMapping("/checkEmail")
+    public boolean checkEmailExists(@RequestParam String email) {
+        return userRepository.existsByEmail(email);
+    }
 
-@PutMapping("/user/{userID}/unfollow")
-public ResponseEntity<?> unfollowUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
-    String unfollowUserID = request.get("unfollowUserID");
-    return userRepository.findById(userID).map(user -> {
-        user.getFollowedUsers().remove(unfollowUserID);
-        userRepository.save(user);
-        return ResponseEntity.ok(Map.of("message", "User unfollowed successfully"));
-    }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
-}
+    @PutMapping("/user/{userID}/follow")
+    public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
+        String followUserID = request.get("followUserID");
+        return userRepository.findById(userID).map(user -> {
+            user.getFollowedUsers().add(followUserID);
+            userRepository.save(user);
 
-@GetMapping("/user/{userID}/followedUsers")
-public List<String> getFollowedUsers(@PathVariable String userID) {
-    return userRepository.findById(userID)
-            .map(user -> new ArrayList<>(user.getFollowedUsers())) // Convert Set to List
-            .orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
-}
+            // Create a notification for the followed user
+            String followerFullName = userRepository.findById(userID)
+                    .map(follower -> follower.getFullname())
+                    .orElse("Someone");
+            String message = String.format("%s started following you.", followerFullName);
+            String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            NotificationModel notification = new NotificationModel(followUserID, message, false, currentDateTime);
+            notificationRepository.save(notification);
+
+            return ResponseEntity.ok(Map.of("message", "User followed successfully"));
+        }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
+    }
+
+    @PutMapping("/user/{userID}/unfollow")
+    public ResponseEntity<?> unfollowUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
+        String unfollowUserID = request.get("unfollowUserID");
+        return userRepository.findById(userID).map(user -> {
+            user.getFollowedUsers().remove(unfollowUserID);
+            userRepository.save(user);
+            return ResponseEntity.ok(Map.of("message", "User unfollowed successfully"));
+        }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
+    }
+
+    @GetMapping("/user/{userID}/followedUsers")
+    public List<String> getFollowedUsers(@PathVariable String userID) {
+        return userRepository.findById(userID)
+                .map(user -> new ArrayList<>(user.getFollowedUsers())) // Convert Set to List
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
+    }
 }

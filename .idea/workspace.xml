@@ -4,7 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a0042ab-477e-4e01-8f8f-2ecb157f262d" name="Changes" comment="" />
+    <list default="true" id="0a0042ab-477e-4e01-8f8f-2ecb157f262d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/BackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/BackendApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/TravistaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/TravistaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/config/test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/AttemptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/AttemptController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/CommunityController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/CommunityController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/NotificationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/OAuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/OAuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/PostManagementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/PostManagementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/QuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/QuizController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/CommunityNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/CommunityNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/CommunityNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/CommunityNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/PostManagementNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/PostManagementNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/PostManagementNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/PostManagementNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/QuizNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/QuizNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/QuizNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/QuizNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/UserNotFoundAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/UserNotFoundAdvice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/exception/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/exception/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/AttemptModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/AttemptModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/CommunityModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/CommunityModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/NoticeModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/NoticeModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/NotificationModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/NotificationModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/PostManagementModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/PostManagementModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/QuizModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/QuizModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/model/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/AttemptRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/AttemptRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/CommunityRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/CommunityRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/NoticeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/NoticeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/NotificationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/NotificationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/PostManagementRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/PostManagementRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/QuizRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/QuizRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/backend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/test/java/backend/BackendApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/test/java/backend/BackendApplicationTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,7 +74,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Develop-V1.0",
+    "git-widget-placeholder": "Develop-Integration",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Travista/Travista-Backend/backend/src/main/java/backend/repository",
     "project.structure.last.edited": "Project",
@@ -49,53 +92,6 @@
       <recent name="backend.config" />
       <recent name="backend.repository" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <module name="Travista-Backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <module name="Travista-Backend" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Travista-Backend" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Travista-Backend" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
