@@ -188,6 +188,22 @@ public class PostManagementController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @DeleteMapping("/{postId}/comment/{commentId}")
+    public ResponseEntity<PostManagementModel> deleteComment(
+            @PathVariable String postId,
+            @PathVariable String commentId,
+            @RequestParam String userID) {
+        return postRepository.findById(postId)
+                .map(post -> {
+                    post.getComments().removeIf(comment ->
+                            comment.getId().equals(commentId) &&
+                                    (comment.getUserID().equals(userID) || post.getUserID().equals(userID)));
+                    postRepository.save(post);
+                    return ResponseEntity.ok(post);
+                })
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<?> handleMaxSizeException(MaxUploadSizeExceededException exc) {
         return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body("File size exceeds the maximum limit!");
