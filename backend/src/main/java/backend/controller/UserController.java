@@ -129,3 +129,11 @@ public ResponseEntity<?> unfollowUser(@PathVariable String userID, @RequestBody 
         return ResponseEntity.ok(Map.of("message", "User unfollowed successfully"));
     }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
 }
+
+@GetMapping("/user/{userID}/followedUsers")
+public List<String> getFollowedUsers(@PathVariable String userID) {
+    return userRepository.findById(userID)
+            .map(user -> new ArrayList<>(user.getFollowedUsers())) // Convert Set to List
+            .orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
+}
+}
