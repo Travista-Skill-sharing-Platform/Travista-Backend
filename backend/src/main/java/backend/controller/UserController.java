@@ -83,3 +83,13 @@ UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable Strin
                 return userRepository.save(userModel);
             }).orElseThrow(() -> new UserNotFoundException(id));
 }
+
+//delete
+@DeleteMapping("/user/{id}")
+String deleteProfile(@PathVariable String id) {
+    if (!userRepository.existsById(id)) {
+        throw new UserNotFoundException(id);
+    }
+    userRepository.deleteById(id);
+    return "user account " + id + " deleted";
+}
