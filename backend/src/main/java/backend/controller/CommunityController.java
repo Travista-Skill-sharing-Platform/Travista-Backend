@@ -89,5 +89,23 @@ public class CommunityController {
         }
     }
 
-    
+    @GetMapping("/{communityId}/notices")
+    public List<NoticeModel> getNotices(@PathVariable String communityId) {
+        CommunityModel community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
+        return community.getNotices(); // Only notices for the given community ID are returned
+    }
+
+    @GetMapping("/notices/{noticeId}")
+    public ResponseEntity<?> getNoticeById(@PathVariable String noticeId) {
+        try {
+            NoticeModel notice = noticeRepository.findById(noticeId)
+                    .orElseThrow(() -> new RuntimeException("Notice not found"));
+            return ResponseEntity.ok(notice);
+        } catch (Exception e) {
+            logger.error("Error fetching notice: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Notice not found"));
+        }
+    }
 }
