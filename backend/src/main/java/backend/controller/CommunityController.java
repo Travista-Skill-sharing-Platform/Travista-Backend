@@ -89,6 +89,34 @@ public class CommunityController {
         }
     }
 
+    @PutMapping("/notices/{noticeId}")
+    public ResponseEntity<?> updateNotice(@PathVariable String noticeId, @RequestBody NoticeModel updatedNotice) {
+        try {
+            // Find the community containing the notice
+            CommunityModel community = communityRepository.findAll().stream()
+                    .filter(c -> c.getNotices().stream().anyMatch(n -> n.getId().equals(noticeId)))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Notice not found in any community"));
+
+            // Find and update the notice in the community's notices array
+            community.getNotices().forEach(notice -> {
+                if (notice.getId().equals(noticeId)) {
+                    notice.setTitle(updatedNotice.getTitle());
+                    notice.setContent(updatedNotice.getContent());
+                }
+            });
+
+            // Save the updated community back to the database
+            communityRepository.save(community);
+
+            return ResponseEntity.ok(Map.of("message", "Notice updated successfully"));
+        } catch (Exception e) {
+            logger.error("Error updating notice: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to update the notice"));
+        }
+    }
+
     @GetMapping("/{communityId}/notices")
     public List<NoticeModel> getNotices(@PathVariable String communityId) {
         CommunityModel community = communityRepository.findById(communityId)
