@@ -57,3 +57,15 @@ public ResponseEntity<Map<String, Object>> login(@RequestBody UserModel loginDet
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid credentials!"));
     }
 }
+
+//Display
+@GetMapping("/user")
+List<UserModel> getAllUsers() {
+    return userRepository.findAll();
+}
+
+@GetMapping("/user/{id}")
+UserModel getUserId(@PathVariable String id) {
+    return userRepository.findById(id)
+            .orElseThrow(() -> new UserNotFoundException(id));
+}
