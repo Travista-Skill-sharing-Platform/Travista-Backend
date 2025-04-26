@@ -22,3 +22,14 @@ public class QuizController {
         }
         return quizRepository.save(quiz);
     }
+
+    @GetMapping
+    public List<QuizModel> getAllQuizzes() {
+        return quizRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public QuizModel getQuizById(@PathVariable String id) {
+        return quizRepository.findById(id)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
+    }
