@@ -89,10 +89,5 @@ public class CommunityController {
         }
     }
 
-    @GetMapping("/{communityId}/notices")
-    public List<NoticeModel> getNotices(@PathVariable String communityId) {
-        CommunityModel community = communityRepository.findById(communityId)
-                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
-        return community.getNotices(); // Only notices for the given community ID are returned
-    }
+    
 }
