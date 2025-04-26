@@ -136,4 +136,17 @@ public class CommunityController {
                     .body(Map.of("error", "Notice not found"));
         }
     }
+
+    @PutMapping("/{communityId}/addUser")
+    public ResponseEntity<?> addUserToCommunity(@PathVariable String communityId, @RequestBody Map<String, String> request) {
+        String userId = request.get("userId");
+        CommunityModel community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
+        UserModel user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        community.getUsers().add(user);
+        communityRepository.save(community);
+        return ResponseEntity.ok(Map.of("message", "User added to community successfully"));
+    }
+    
 }
