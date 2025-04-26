@@ -93,3 +93,29 @@ String deleteProfile(@PathVariable String id) {
     userRepository.deleteById(id);
     return "user account " + id + " deleted";
 }
+
+// check email
+@GetMapping("/checkEmail")
+public boolean checkEmailExists(@RequestParam String email) {
+    return userRepository.existsByEmail(email);
+}
+
+@PutMapping("/user/{userID}/follow")
+public ResponseEntity<?> followUser(@PathVariable String userID, @RequestBody Map<String, String> request) {
+    String followUserID = request.get("followUserID");
+    return userRepository.findById(userID).map(user -> {
+        user.getFollowedUsers().add(followUserID);
+        userRepository.save(user);
+
+        // Create a notification for the followed user
+        String followerFullName = userRepository.findById(userID)
+                .map(follower -> follower.getFullname())
+                .orElse("Someone");
+        String message = String.format("%s started following you.", followerFullName);
+        String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        NotificationModel notification = new NotificationModel(followUserID, message, false, currentDateTime);
+        notificationRepository.save(notification);
+
+        return ResponseEntity.ok(Map.of("message", "User followed successfully"));
+    }).orElseThrow(() -> new UserNotFoundException("User not found: " + userID));
+}
