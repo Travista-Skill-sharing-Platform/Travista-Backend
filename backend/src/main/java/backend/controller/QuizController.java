@@ -33,3 +33,14 @@ public class QuizController {
         return quizRepository.findById(id)
                 .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
     }
+
+    @PutMapping("/{id}")
+    public QuizModel updateQuiz(@PathVariable String id, @RequestBody QuizModel quizDetails) {
+        QuizModel quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
+        quiz.setTitle(quizDetails.getTitle());
+        quiz.setDescription(quizDetails.getDescription());
+        quiz.setUserID(quizDetails.getUserID());
+        quiz.setQuestionAnswerPairs(quizDetails.getQuestionAnswerPairs()); // Updated to use questionAnswerPairs
+        return quizRepository.save(quiz);
+    }
