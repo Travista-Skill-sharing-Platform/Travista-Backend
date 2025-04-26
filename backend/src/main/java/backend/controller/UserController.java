@@ -69,3 +69,17 @@ UserModel getUserId(@PathVariable String id) {
     return userRepository.findById(id)
             .orElseThrow(() -> new UserNotFoundException(id));
 }
+
+//update
+@PutMapping("/user/{id}")
+UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable String id) {
+    return userRepository.findById(id)
+            .map(userModel -> {
+                userModel.setFullname(newUserModel.getFullname());
+                userModel.setEmail(newUserModel.getEmail());
+                userModel.setPassword(newUserModel.getPassword());
+                userModel.setPhone(newUserModel.getPhone());
+                userModel.setBio(newUserModel.getBio()); // Update bio
+                return userRepository.save(userModel);
+            }).orElseThrow(() -> new UserNotFoundException(id));
+}
