@@ -44,3 +44,12 @@ public class QuizController {
         quiz.setQuestionAnswerPairs(quizDetails.getQuestionAnswerPairs()); // Updated to use questionAnswerPairs
         return quizRepository.save(quiz);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteQuiz(@PathVariable String id) {
+        QuizModel quiz = quizRepository.findById(id)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id " + id));
+        quizRepository.delete(quiz);
+        return ResponseEntity.ok().build();
+    }
+}
