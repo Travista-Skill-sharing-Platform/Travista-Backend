@@ -176,6 +176,28 @@ public class PostManagementController {
         return ResponseEntity.ok("Post updated successfully!");
     }
 
+    @DeleteMapping("/{postId}/media")
+    public ResponseEntity<?> deleteMedia(@PathVariable String postId, @RequestBody Map<String, String> request) {
+        String mediaUrl = request.get("mediaUrl");
+
+        PostManagementModel post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostManagementNotFoundException("Post not found: " + postId));
+
+        if (!post.getMedia().remove(mediaUrl)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Media file not found in post.");
+        }
+
+        try {
+            Path filePath = Paths.get(uploadDir, mediaUrl.replace("/media/", ""));
+            Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete media file.");
+        }
+
+        postRepository.save(post);
+        return ResponseEntity.ok("Media file deleted successfully!");
+    }
+
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<?> handleMaxSizeException(MaxUploadSizeExceededException exc) {
         return ResponseEntity.status(HttpStatus.PAYLOAD_TOO_LARGE).body("File size exceeds the maximum limit!");
