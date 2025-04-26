@@ -148,5 +148,64 @@ public class CommunityController {
         communityRepository.save(community);
         return ResponseEntity.ok(Map.of("message", "User added to community successfully"));
     }
-    
+
+    @PutMapping("/{communityId}/removeUser")
+    public ResponseEntity<?> removeUserFromCommunity(@PathVariable String communityId, @RequestBody Map<String, String> request) {
+        String userId = request.get("userId");
+        CommunityModel community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
+
+        boolean removed = community.getUsers().removeIf(user -> user.getId().equals(userId));
+        if (!removed) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "User not found in community"));
+        }
+
+        communityRepository.save(community);
+        return ResponseEntity.ok(Map.of("message", "User removed from community successfully"));
+    }
+
+    @GetMapping("/{communityId}/users")
+    public List<UserModel> getCommunityUsers(@PathVariable String communityId) {
+        CommunityModel community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
+        return community.getUsers();
+    }
+
+    @GetMapping("/{communityId}")
+    public ResponseEntity<?> getCommunityDetails(@PathVariable String communityId) {
+        CommunityModel community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
+
+        // Create a response object that includes the ownerId and name
+        Map<String, Object> response = new HashMap<>();
+        response.put("ownerId", community.getOwnerId());
+        response.put("name", community.getName()); // Include the community name
+        // Add any other community details you need
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/myCommunities/{userId}")
+    public List<CommunityModel> getUserCommunities(@PathVariable String userId) {
+        return communityRepository.findAll().stream()
+                .filter(community -> community.getUsers().stream()
+                        .anyMatch(user -> user.getId().equals(userId)))
+                .toList();
+    }
+
+    @DeleteMapping("/{communityId}/notices/{noticeId}")
+    public ResponseEntity<?> deleteNoticeFromCommunity(@PathVariable String communityId, @PathVariable String noticeId) {
+        CommunityModel community = communityRepository.findById(communityId)
+                .orElseThrow(() -> new CommunityNotFoundException("Community not found"));
+
+        boolean removed = community.getNotices().removeIf(notice -> notice.getId().equals(noticeId));
+        if (!removed) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "Notice not found in community"));
+        }
+
+        communityRepository.save(community);
+        return ResponseEntity.ok(Map.of("message", "Notice deleted successfully"));
+    }
 }
